@@ -33,7 +33,8 @@ export default function App() {
   const loadTodos = async () => {
     try {
       setLoading(true);
-      // TODO 3a: YOUR CODE HERE
+      const savedTodos = await fetchTodos();
+      setTodos(savedTodos);
     } catch (error) {
       Alert.alert("Error", "Could not load todos: " + error.message);
     } finally {
@@ -41,7 +42,9 @@ export default function App() {
     }
   };
 
-  // TODO 3b: YOUR useEffect HERE
+  useEffect(() => {
+    loadTodos();
+  }, []);
 
   // ---------- Save data (Part 3) ----------
   // TODO 4: Make the Add button save a todo.
@@ -92,7 +95,13 @@ export default function App() {
           - If loading is false and todos is empty, show:
             <Text style={styles.empty}>No todos yet</Text>
       */}
-      <Text style={styles.empty}>List goes here</Text>
+      <FlatList
+        data={todos}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TodoItem title={item.title} completed={item.completed} />
+        )}
+      />
     </SafeAreaView>
   );
 }
