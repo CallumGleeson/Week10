@@ -15,6 +15,7 @@ import {
   Alert,
 } from "react-native";
 import TodoItem from "./components/TodoItem";
+import { addTodo, fetchTodos } from "./services/todoService";
 
 
 export default function App() {
